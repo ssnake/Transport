@@ -62,7 +62,7 @@ public class TransportMathTest extends TestCase {
 
         Vector2d<Float> H = TransportMath.getPointOnSection(P2, P1, M);
         assertEquals(2.0f, H.getX() );
-        assert((new Float(0.0f)).equals(H.getY()));
+        assertTrue((new Float(0.0f)).equals(H.getY()));
 
     }
     public void testFindPoint3()
