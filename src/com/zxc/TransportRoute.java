@@ -42,6 +42,12 @@ public class TransportRoute {
             this.x = x;
             this.y = y;
         }
+
+        public boolean equals(Object obj)
+        {
+            return (this.x == ((Point) obj).getX() ) && (this.y == ((Point) obj).getY());
+
+        }
     }
 
     Vector<Point> data;
@@ -71,14 +77,37 @@ public class TransportRoute {
         }
         return ret;
     }
+    public Float getDistanceBetweenPoints(Point p1, Point p2)
+    {
+        int i1 = data.indexOf(p1);
+        int i2 = data.indexOf(p2);
+        return getDistanceBetweenPoints(i1, i2);
+
+    }
+
     public Point findNearestPoint(Vector2d<Float> p)
     {
-        return new Point(0.0f, 0.0f);
+        Float l = Float.MAX_VALUE;
+        Point ret_p = null;
+        for(Point dp: data)
+        {
+            Float temp_l = TransportMath.getDistance(dp.toVector2d(), p);
+            if (temp_l < l)
+            {
+                ret_p = dp;
+                l = temp_l;
+            }
+        }
+        return ret_p;
 
     }
     public Float getDistance(Vector2d<Float> p1, Vector2d<Float> p2)
     {
-        return 0.0f;
+        Point dp1 = findNearestPoint(p1);
+        Point dp2 = findNearestPoint(p2);
+
+
+        return getDistanceBetweenPoints(dp1, dp2);
     }
     public String getName() {
         return name;
@@ -109,5 +138,9 @@ public class TransportRoute {
     {
         data.add(p);
         return p;
+    }
+    public Point get(int index)
+    {
+        return data.get(index);
     }
 }

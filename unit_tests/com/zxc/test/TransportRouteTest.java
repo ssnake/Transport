@@ -52,6 +52,17 @@ public class TransportRouteTest extends TestCase {
 
         assertEquals(8.0f, r.getLength());
     }
+    public void testFindNearestPoint()
+    {
+        TransportRoute r = new TransportRoute();
+        r.add(1.0f, 1.0f);
+        r.add(-1.0f, -1.0f);
+        TransportRoute.Point p = r.findNearestPoint(new Vector2d<Float>(0.5f, 0.5f));
+        assert(p.equals(r.get(0)));
+        TransportRoute.Point p2 = r.findNearestPoint(new Vector2d<Float>(-1.5f, -1.5f));
+        assert(p2.equals(r.get(1)));
+
+    }
     public void testGetDistanceBetweenPoints()
     {
         TransportRoute r = new TransportRoute();
